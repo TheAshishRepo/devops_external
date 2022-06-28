@@ -11,3 +11,4 @@ Dockerfile
 .dockerignore
 *.md
 *.txt
+Jenkinsfile
