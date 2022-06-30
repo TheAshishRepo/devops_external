@@ -19,8 +19,6 @@ pipeline {
                 git branch: 'master',
                     url: 'https://github.com/beachedcoder/2022_6_27_devops_external.git'
 
-                println("using commit:: " + ${GIT_REVISION,length=6})
-                
                 echo 'showing files from repo?' 
                 sh 'ls -a'
                 echo 'install dependencies' 
@@ -34,7 +32,7 @@ pipeline {
             steps{
                 script {
                     echo 'building image' 
-                    dockerImage = docker.build("${env.imageName}:${env.BUILD_ID}")
+                    dockerImage = docker.build("${env.imageName}:${GIT_REVISION,length=6}")
                     echo 'image built'
                 }
             }
