@@ -32,7 +32,7 @@ pipeline {
             steps{
                 script {
                     echo 'building image' 
-                    dockerImage = docker.build("${env.imageName}:${env.GIT_REVISION}")
+                    dockerImage = docker.build("${env.imageName}:${env.BUILD_ID}")
                     echo 'image built'
                 }
             }
@@ -42,7 +42,7 @@ pipeline {
                 script {
                     echo 'pushing the image to docker hub' 
                     docker.withRegistry('',registryCredential){
-                        dockerImage.push("${env.GIT_REVISION}")
+                        dockerImage.push("${env.BUILD_ID}")
                     }
                 }
             }
@@ -58,7 +58,7 @@ pipeline {
             steps {
                 echo 'Get cluster credentials'
                 sh 'gcloud container clusters get-credentials demo-cluster --zone us-central1-c --project roidtc-june22-u100'
-                sh "kubectl set image deployment/external-deployment events-external=${env.imageName}:${env.GIT_REVISION} --namespace=events"
+                sh "kubectl set image deployment/external-deployment events-external=${env.imageName}:${env.BUILD_ID} --namespace=events"
 
              }
         }     
@@ -66,7 +66,7 @@ pipeline {
             steps{
                 echo "pending"
 
-                sh "docker rmi ${env.imageName}:${env.GIT_REVISION}"
+                sh "docker rmi ${env.imageName}:${env.BUILD_ID}"
             }
         }
     }
