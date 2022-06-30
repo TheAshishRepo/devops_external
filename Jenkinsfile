@@ -19,7 +19,8 @@ pipeline {
                 git branch: 'master',
                     url: 'https://github.com/beachedcoder/2022_6_27_devops_external.git'
 
-                echo "using commit:: ${GIT_REVISION,length=6}"
+                println("using commit:: " + ${GIT_REVISION,length=6})
+                
                 echo 'showing files from repo?' 
                 sh 'ls -a'
                 echo 'install dependencies' 
