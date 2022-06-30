@@ -32,7 +32,7 @@ pipeline {
             steps{
                 script {
                     echo 'building image' 
-                    dockerImage = docker.build("${env.imageName}:${env.BUILD_ID}")
+                    dockerImage = docker.build("${env.imageName}:${env.GIT_REVISION,length=6}")
                     echo 'image built'
                 }
             }
