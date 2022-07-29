@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: external-deployment
+  namespace: nodeapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: external
+  template:
+    metadata:
+      labels:
+        app: external
+    spec:
+
+      containers:
+      - name: external
+        image: vkuppuswamy/node-external:v2
+        # env:
+        #   - name: SERVER
+        #     value: 'http://internal-service:3000'
+        env:
+          - name: SERVER
+            valueFrom:
+              configMapKeyRef:
+                name: externalconfigmap
+                key: SERVER
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080

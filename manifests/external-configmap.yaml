@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: externalconfigmap
+  namespace: nodeapp
+data:
+  SERVER: http://internal-service:3000
