@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        registryCredential = 'DockerHub'
+        registryCredential = 'dockerhub'
         imageName = 'webashu/external'
         dockerImage = ''
     }   
